@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+
+{% block title %}<title>your orders</title>{% endblock title %}
+
+{% block content%}
+{% load custom_filter %}
+<div class="page-heading ">
+    <section class="container border rounded">
+        <p class="display-4 m-2 pl-2" style="text-align: left;">Your Orders</p>
+        <table class="table border">
+            <thead>
+                <tr>
+                    <th>Sr. no</th>
+                    <th>Image</th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <th>Status</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for orders in ord %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td><img class="rounded-circle" style="height: 100px; width: 80px;"
+                            src="{{orders.product.image.url}}" alt="product"></td>
+                    <td>{{orders.product.p_name}}</td>
+                    <td>₹&nbsp;{{orders.price}}</td>
+                    <td>{{orders.quantity}}</td>
+                    <td>₹&nbsp;{{orders.quantity|multiply:orders.price}}</td>
+                    {% if orders.status %}
+                    <td><span class="badge badge-success">Completed</span></td>
+                    {% else %}
+                    <td><span class="badge badge-info">Pending</span></td>
+                    {% endif %}
+                    <td>
+                        {% if not orders.status %}
+                        <form action="{% url 'orders'  %}" method="POST">
+                            {% csrf_token %}
+                            <input hidden type="text" name="order_id" id="" value="{{orders.id}}">
+                            <input hidden type="text" name="delete" id="" value="True">
+                            <button class="btn btn-neutral btn-icon">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </section>
+</div>
+
+{% endblock %}

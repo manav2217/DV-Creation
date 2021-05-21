@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+
+{% block title %}<title>Cart</title>{% endblock title %}
+
+{% block custome_js %}
+
+{% endblock custome_js %}
+
+{% block content%}
+{% load cart %}
+<div class="page-heading">
+    <div class="container border rounded">
+        <p class="display-4 m-2 pl-2" style="text-align: left; ">Your shopping Cart</p>
+        <table class="table border">
+            <thead>
+                <tr style="background-color: rgb(223, 219, 219);">
+                    <th>Sr. no</th>
+                    <th>Image</th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <td><b>Quantity</b></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pro in products %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td><a href="{% url 'productview' id=pro.id %}"><img class="rounded-circle"
+                                style="height: 100px; width: 80px;" src="{{pro.image.url}}" alt="product"></a></td>
+                    <td><a href="{% url 'productview' id=pro.id %}" style="color: black;">{{pro.p_name}}</a></td>
+                    <td>₹&nbsp;{{pro.price}}</td>
+                    <td>{{pro|cart_quantity:request.session.cart}}</td>
+                    <td>₹&nbsp;{{pro|total_price:request.session.cart}}</td>
+                    <td class="row" style="border: 2x;">
+                        <form action="{% url 'cart' %}" method="POST">
+                            {% csrf_token %}
+                            <input hidden type="text" name="pro_id" id="" value="{{pro.id}}">
+                            <input hidden type="text" name="remove" id="" value="True">
+                            <button class="btn btn-neutral btn-icon">
+                                -
+                            </button>
+                        </form>
+                        <button class="btn btn-secondary">{{ pro|cart_quantity:request.session.cart }}</button>
+                        <form action="{% url 'cart' %}" method="POST">
+                            {% csrf_token %}
+                            <input hidden type="text" name="pro_id" id="" value="{{pro.id}}">
+                            <button class="btn btn-neutral btn-icon">
+                                +
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr style="background-color: rgb(199, 191, 191);">
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th colspan="">Total</th>
+                    <th>₹&nbsp;{{products|cart_total_price:request.session.cart}}</th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="m-3 p-3 mb-5">
+            <a href="/check-out/"
+                class="btn btn-outline-info rounded float-right col-3">Check Out</a>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

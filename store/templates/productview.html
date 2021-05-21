@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}<title>{{product.p_name}}</title>{% endblock title %}
+{% load cart %}
+
+{% block custome_js %}
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/bootstrap.css' % }" />
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/animate.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/font-awesome.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/strok_gap_icon.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/settings.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/owl.carousel.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/preset.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/responsive.css' %}" />
+
+{% endblock custome_js %}
+
+{% block content %}
+
+<div class="page-heading p-4">
+    <section class="comonSection noPaddingBottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <img class="card-img-top " width="400px" height="500px" src="{{product.image.url}}" alt="">
+                        <div class="card-body">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 noPaddingLeft">
+                    <div class="singleProInfo">
+                        <div class="productinfoTop">
+                            <h2 class="productSiTitle">Post Mid-Volume Backpack</h2>
+                            <div class="singShopRatting">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-half-full"></i>
+                                <span>(4.7/5 Ratings)</span>
+                            </div>
+                            <p class="prices2">&nbsp;$89.00</p>
+                        </div>
+                    </div>
+                    <div class="sinShopCont">
+                        <p>
+                            The Love Boat soon will be making another run the love boat promises something for
+                            everyone one two three four five six seven eight Sclemeel schlemazel hasenfeffer
+                            incorporated the weather started getting rough the tiny ship was tossed if not for
+                            the courage of the fearless crew the minnow would be lost the minnow would be lost.
+                        </p>
+                    </div>
+                    <h3 class="stokPrduct">Dv'S choice</h3>
+                    <div class="ctyandColor">
+
+                        <div class="colorW">
+                            <h4>SELECT COLOR:</h4>
+                            <div class="productColor">
+                                <!-- <a class="SandyBrown" href="#"></a> -->
+                                <a class="Flamingo" href="#"></a>
+                                <!-- <a class="DarkGreen" href="#"></a>
+                                <a class="Wattle" href="#"></a> -->
+                            </div>
+                        </div>
+                    </div>
+                    {% if product|is_in_cart:request.session.cart %}
+                    <h4>Quantity already added in cart</h4>
+                    <div class="quantityW cartButtons">
+                        <div class="quantity float-right">
+                            <tr><h5>{{product|cart_quantity:request.session.cart}}</h5></tr>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="cartButtons" id="{{product.id}}">
+                        <form action="/products/#{{product.id}}" method="POST">{% csrf_token %}
+                            <input type="hidden" name="pro_id" id="" value="{{product.id}}">
+                            <input type="submit" class="vol_btn vol_btn_bg" name="" id="" value="Add to cart">
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="seperator">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock content %}
+
+{% block mannual_js %}
+<script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/mixer.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/wow.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.appear.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/owl.carousel.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.themepunch.tools.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.themepunch.revolution.min.js' %}"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+<script type="text/javascript" src="{% static 'js/gmaps.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/wow.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/theme.js' %}"></script>
+
+{% endblock mannual_js %}

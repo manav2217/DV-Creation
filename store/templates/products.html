@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}<title>Sixteen Clothing Products</title>{% endblock title %}
+{% block custome_js %}
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/bootstrap.css' % }" />
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/animate.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/font-awesome.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/strok_gap_icon.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/settings.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/owl.carousel.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/preset.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/responsive.css' %}" />
+
+{% endblock custome_js %}
+
+{% block content %}
+
+{% load cart %}
+
+<!-- Page Content -->
+
+<div class="page-heading products-heading header-text">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-content">
+                    <h4>new arrivals</h4>
+                    <h2>dv products</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="comonSection">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="shop_heading">
+                    <h2>Product List</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row shopAccessRow">
+            <div class="col-lg-8 col-sm-9">
+
+            </div>
+            <div class="col-lg-4 col-sm-3">
+                <div class="shopShorts">
+                    <div class="dropdown open">
+                        <button class="btn dropdown-toggle shopShortList" type="button" id="triggerId"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Category
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="triggerId">
+                            <a class="dropdown-item" href="/products/">All Products</a>
+                            {% for cat in cat %}
+                            <a class="dropdown-item" href="/products/?catagory={{cat.id}}">{{cat.name}}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            
+            {% for pro in all_pro %}
+            <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="700ms" data-wow-delay="300ms" id="{{pro.id}}">
+                <div class="singleProduct01 text-center">
+                    <div class="productThumb01">
+                        <div class="newLabel02 poppins">New</div>
+                        <div class="saleLabel02 poppins">Sale</div>
+                        <div style="height: 400px;">
+                            <img src="{{pro.image.url}}" alt="" />
+                        </div>
+                        <div class="productHover01">
+                            <form action="/products/#{{pro.id}}" method="POST"> 
+                            {% csrf_token %}
+                            <input type="hidden" name="pro_id" id=""  value="{{pro.id}}">
+                            <input type="hidden" name="" id="">
+                            
+                            <input type="submit" value="ADD TO CART" class="vol_btn vol_btn_bg" name="" id="">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="productDesc01">
+                        <h5><a href="{% url 'productview' id=pro.id %}" class="poppins">{{pro.p_name}}</a></h5>
+                        <p class="cats"><a href="shop_single.html">{{pro.catagory}}</a></p>
+                        <p class="prices"> &nbsp;₹{{pro.price}}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- <div class="row mtop32">
+            <div class="col-lg-12">
+                <div class="sop_navigation text-center">
+                    <a href="#">1</a>
+                    <a href="#" class="current">2</a>
+                    <a href="#">3</a>
+                    <a href="#" class="next"><i class="flaticon-arrows-3"></i></a>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</section>
+
+
+{% endblock content %}
