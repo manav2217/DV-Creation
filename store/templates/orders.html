@@ -1,48 +1,68 @@
 {% extends 'base.html' %}
-
+{% load static %}
 
 {% block title %}<title>your orders</title>{% endblock title %}
+{% block custome_js %}
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/bootstrap.css' % }" />
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/animate.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/font-awesome.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/strok_gap_icon.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/settings.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/owl.carousel.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/preset.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/style.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'saperate/css/responsive.css' %}" />
 
+{% endblock custome_js %}
 {% block content%}
 {% load custom_filter %}
-<div class="page-heading ">
+<div class="page-heading">
     <section class="container border rounded">
-        <p class="display-4 m-2 pl-2" style="text-align: left;">Your Orders</p>
-        <table class="table border">
+        <div class="col-lg-12">
+            <h3 class="cartHeadings">Shopping Order Summary</h3>
+        </div>
+        <table class="shop_table shop_table_responsive cart cart_table">
             <thead>
                 <tr>
-                    <th>Sr. no</th>
-                    <th>Image</th>
-                    <th>Product Name</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Total Price</th>
-                    <th>Status</th>
-                    <th>Delete</th>
+                    <!-- <th>Sr. no</th> -->
+                    <th class="product-thumbnail">Image</th>
+                    <th class="product-name">Product Name</th>
+                    <th class="product-price">Price</th>
+                    <th class="product-quantity">Quantity</th>
+                    <th class="product-subtotal">Total Price</th>
+                    <th class="product-status">Status/<br>order-Date</th>
+                    <th class="product-remove">Delete</th>
                 </tr>
             </thead>
             <tbody>
                 {% for orders in ord %}
-                <tr>
-                    <td>{{forloop.counter}}</td>
-                    <td><img class="rounded-circle" style="height: 100px; width: 80px;"
-                            src="{{orders.product.image.url}}" alt="product"></td>
-                    <td>{{orders.product.p_name}}</td>
-                    <td>₹&nbsp;{{orders.price}}</td>
-                    <td>{{orders.quantity}}</td>
-                    <td>₹&nbsp;{{orders.quantity|multiply:orders.price}}</td>
+                <tr class="cart_item wow fadeInUp animated" data-wow-delay="300ms" data-wow-duration="700ms">
+                    <!-- <td>{{forloop.counter}}</td> -->
+                    <td class="product-thumbnail">
+                        <img class="rounded-circle" style="height: 100px; width: 80px;"
+                            src="{{orders.product.image.url}}" alt="product">
+                    </td>
+                    <td class="product-name">
+                        <a class="itemtitle" href="#">{{orders.product.p_name}}</a>
+                    </td>
+                    <td class="product-price" data-title="Price">
+                        <span class="amount">₹&nbsp;{{orders.price}}</span>
+                    </td>
+                    <td class="product-price">{{orders.quantity}}</td>
+                    <td class="product-subtotal" data-title="Total"><span class="amount">₹&nbsp;{{orders.quantity|multiply:orders.price}}</span>	</td>
                     {% if orders.status %}
-                    <td><span class="badge badge-success">Completed</span></td>
+                    <td class="product-status"><span class="badge badge-success">Completed</span></td>
                     {% else %}
-                    <td><span class="badge badge-info">Pending</span></td>
+                    <td class="product-status"><span class="badge badge-info">Pending</span>
+                    </td>
                     {% endif %}
-                    <td>
+                    <td class="product-remove">
                         {% if not orders.status %}
                         <form action="{% url 'orders'  %}" method="POST">
                             {% csrf_token %}
                             <input hidden type="text" name="order_id" id="" value="{{orders.id}}">
                             <input hidden type="text" name="delete" id="" value="True">
-                            <button class="btn btn-neutral btn-icon">
+                            <button class="btn btn-secondary">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </button>
                         </form>
@@ -57,3 +77,19 @@
 </div>
 
 {% endblock %}
+
+{% block mannual_js %}
+        <!-- Include All JS -->
+        <script type="text/javascript" src="{% static 'saperate/js/jquery.js' %}"></script>
+        <script type="text/javascript" src="{% static 'saperate/js/bootstrap.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'saperate/js/mixer.js' %}"></script>
+        <script type="text/javascript" src="{% static 'saperate/js/wow.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'saperate/js/jquery.appear.js' %}"></script>
+        <script type="text/javascript" src="{% static 'saperate/js/owl.carousel.js' %}"></script>
+        <script type="text/javascript" src="{% static 'saperate/js/jquery.themepunch.tools.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'saperate/js/jquery.themepunch.revolution.min.js' %}"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js" ></script>
+        <script type="text/javascript" src="{% static 'saperate/js/gmaps.js' %}"></script>
+        <script type="text/javascript" src="{% static 'saperate/js/wow.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'saperate/js/theme.js' %}"></script>
+{% endblock mannual_js %}

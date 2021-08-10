@@ -113,8 +113,8 @@ def register(request):
                 otp=user_otp
             )
             user.save()
-        subject = f"Welcome to DV creation"
-        message = f"Hi {user.email} , Your OTP for varificaion is {user_otp} , (Note: OTP is only for 5 min)"
+        subject = f"Welcome "
+        message = f"Hi {user.email} , Your OTP for varificaion is {user_otp} , "
         email_from = settings.EMAIL_HOST_USER
         recipient_list = [user.email, ]
         send_mail(subject, message, email_from, recipient_list)
@@ -316,6 +316,7 @@ def checkout(request):
                           state=state,
                           pincode=zipcode,
                           customer_email=email,
+                          
                           )
             order.save()
             request.session['cart'] = {}

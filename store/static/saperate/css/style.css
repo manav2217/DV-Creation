@@ -4759,6 +4759,9 @@ blockquote p{
 .cart_table tbody tr td.product-name{
     width: 24.6666%;
 }
+.cart_table tbody tr td.product-status{
+        width: 24.6666%;
+}
 .cart_table tbody tr td.product-price{
     width: 16.8%;
 }

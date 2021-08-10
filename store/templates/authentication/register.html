@@ -1,7 +1,7 @@
 {% include 'authentication/base.html' %}
 
 {% block title %}
-  <title>DV-creation Register</title>
+  <title>Register</title>
 {% endblock title %}
 
 {% block section %}
@@ -31,7 +31,7 @@
                             </div>
                         </form>
                         {% else %}
-                        <h3 class="mb-4 text-center">Have an account? <br> Join DV creation</h3>
+                        <h3 class="mb-4 text-center">Have an account? <br> Join Now</h3>
                         <form action="{% url 'register' %}" method="POST" class="signin-form">{% csrf_token %}
                             <div class="form-group">
                                 <input type="text" class="form-control" placeholder="Enter Your email" name="em" required>
